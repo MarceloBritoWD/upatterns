@@ -1,4 +1,4 @@
-import { MicroService } from "../interfaces/micro-service";
+import { MicroService } from "../model/micro-service";
 
 export const generationOptions: MicroService[] = [
     {

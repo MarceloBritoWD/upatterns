@@ -1,8 +1,8 @@
-import { GluegunToolbox, print } from 'gluegun';
+import { GluegunToolbox } from 'gluegun';
 import { prompt } from 'gluegun/prompt';
-import { generationOptions } from '../constants';
-import { processAnswer } from '../functions';
-import { promises } from 'dns';
+import { processAnswer } from '../functions/template-generation';
+import { getNewQuestions } from '../questions/filtered-questions';
+import { firstCommonQuestions } from '../questions/first-common-questions';
 
 module.exports = {
   name: 'generate',
@@ -21,34 +21,28 @@ module.exports = {
     
     const firstParam = parameters.first;
 
+    // TODO: Create a banner with the name  'upatterns' and put on inicialization.
+
     if(!firstParam) {
-      error('You need to pass what to generate. Ex: \'uservice\'');
-      info('Run \'upatterns -h\' to get help'); // TODO: put a icon here
+      error('🎈 You need to pass what to generate. Ex: \'$ upatterns generate uservice\'');
+      info('📖  Run \'$ upatterns -h\' to get help');
+      return;
+    }
+
+    if(firstParam !== 'uservice') {
+      error('🎈 This type of generation is not supported.');
+      info('📖  Run \'$ upatterns -h\' to get help');
       return;
     }
     
-    const result = await prompt.ask([ // TODO: Have to create a way to make it dinamic, to change by the answers of the user
-      {
-        type: 'list',
-        name: 'type',
-        message: 'What type of micro service do you want to generate?',
-        choices: [
-          ...generationOptions.map(i => i.name)
-        ],
-      },
-      {
-        type: 'confirm',
-        name: 'confirm',
-        message: 'Are you sure?',
-      }
-    ]);
-  
-    print.debug(result)// TODO: Remove this
-
-    processAnswer(result).map(async (item) => {
+    const firstQuestions = await prompt.ask(firstCommonQuestions());
+    const filteredQuestionsToDo = await prompt.ask(getNewQuestions(firstQuestions));
+    
+    // Final generation here
+    processAnswer({...firstQuestions, ...filteredQuestionsToDo}).map(async (item) => {
       await template.generate(item);
     });
 
     success(`Generated service!`)
   }
-} 
+}
