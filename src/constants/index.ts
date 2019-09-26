@@ -1,27 +1,25 @@
-export const generationOptions = [
+import { MicroService } from "../interfaces/micro-service";
+
+export const generationOptions: MicroService[] = [
     {
         name: 'Simple Micro Service (Customer, Employee)',
-        shortcut: 'SMS'
+        type: 'SimpleMicroService'
     },
     {
         name: 'Simple Micro Service with shared database',
-        shortcut: 'SMSSB'
+        type: 'SimpleMicroServiceSharedDatabase'
     },
     {
         name: 'API Gateway Service (With Zuul Proxy)',
-        shortcut: 'API'
+        type: 'ApiGateway'
     },
     {
         name: 'Service Discovery',
-        shortcut: 'SD'
+        type: 'ServiceDiscovery'
     },
     {
         name: 'External Configuration Service',
-        shortcut: 'ECS'
-    },
-    {
-        name: 'Circuit Breaker (plus)',
-        shortcut: 'CBR'
-    },
+        type: 'ExternalConfigurationService'
+    }
 ];
 

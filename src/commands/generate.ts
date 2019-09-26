@@ -2,6 +2,7 @@ import { GluegunToolbox, print } from 'gluegun';
 import { prompt } from 'gluegun/prompt';
 import { generationOptions } from '../constants';
 import { processAnswer } from '../functions';
+import { promises } from 'dns';
 
 module.exports = {
   name: 'generate',
@@ -18,16 +19,15 @@ module.exports = {
       },
     } = toolbox
     
-    const toGenerate = parameters.first;
-    // const dashedName = name.replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/[ ]/g, '-').toLowerCase();
+    const firstParam = parameters.first;
 
-    if(!toGenerate) {
+    if(!firstParam) {
       error('You need to pass what to generate. Ex: \'uservice\'');
-      info('Run \'upatterns -h\' to get help');
+      info('Run \'upatterns -h\' to get help'); // TODO: put a icon here
       return;
     }
     
-    const result = await prompt.ask([
+    const result = await prompt.ask([ // TODO: Have to create a way to make it dinamic, to change by the answers of the user
       {
         type: 'list',
         name: 'type',
@@ -42,13 +42,13 @@ module.exports = {
         message: 'Are you sure?',
       }
     ]);
-
-
-    print.debug(result)
-
-    processAnswer(result.type);
-    
-  },
-
   
-}
+    print.debug(result)// TODO: Remove this
+
+    processAnswer(result).map(async (item) => {
+      await template.generate(item);
+    });
+
+    success(`Generated service!`)
+  }
+} 
