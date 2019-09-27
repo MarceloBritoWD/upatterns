@@ -21,7 +21,7 @@ module.exports = {
     
     const firstParam = parameters.first;
 
-    require('../brand/header')();
+    require('../brand/header')(); // TODO: add link for official documentation
                                                                                     
     if(!firstParam) {
       error('🎈 You need to pass what to generate. Ex: \'$ upatterns generate uservice\'');
@@ -42,6 +42,8 @@ module.exports = {
     processAnswer({...firstQuestions, ...filteredQuestionsToDo}).map(async (item) => {
       await template.generate(item);
     });
+
+    // TODO: add links to the tools used in the generation here (a function that returns it).
 
     success(`Generated service!`)
   }

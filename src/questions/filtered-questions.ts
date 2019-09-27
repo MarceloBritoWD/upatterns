@@ -48,7 +48,7 @@ export function getFilteredQuestionsExternalConfigurationService(): GluegunQuest
             type: 'input',
             name: 'repository',
             message: 'What is your git repository url?',
-            default: 'https://github.com/'
+            default: 'https://github.com/user/repository'
         }
     ];
 };
