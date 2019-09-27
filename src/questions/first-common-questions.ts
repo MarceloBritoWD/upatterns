@@ -5,7 +5,7 @@ export function firstCommonQuestions() {
         {
           type: 'list',
           name: 'type',
-          message: 'What type of micro service do you want to generate?',
+          message: 'What type of microservice do you want to generate?',
           choices: [
             ...generationOptions.map(i => i.name)
           ],

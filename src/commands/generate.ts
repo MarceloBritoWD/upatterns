@@ -21,8 +21,8 @@ module.exports = {
     
     const firstParam = parameters.first;
 
-    // TODO: Create a banner with the name  'upatterns' and put on inicialization.
-
+    require('../brand/header')();
+                                                                                    
     if(!firstParam) {
       error('🎈 You need to pass what to generate. Ex: \'$ upatterns generate uservice\'');
       info('📖  Run \'$ upatterns -h\' to get help');
