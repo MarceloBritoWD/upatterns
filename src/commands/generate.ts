@@ -1,8 +1,9 @@
 import { GluegunToolbox } from 'gluegun';
 import { prompt } from 'gluegun/prompt';
-import { processAnswer } from '../functions/template-generation';
-import { getNewQuestions } from '../questions/filtered-questions';
-import { firstCommonQuestions } from '../questions/first-common-questions';
+import { processAnswer } from '../core/functions/template-generation';
+import { getNewQuestions } from '../core/questions/filtered-questions';
+import { firstCommonQuestions } from '../core/questions/first-common-questions';
+const header = require('../core/brand/header');
 
 module.exports = {
   name: 'generate',
@@ -21,7 +22,7 @@ module.exports = {
     
     const firstParam = parameters.first;
 
-    require('../brand/header')(); // TODO: add link for official documentation
+    header(); // TODO: add link for official documentation
                                                                                     
     if(!firstParam) {
       error('🎈 You need to pass what to generate. Ex: \'$ upatterns generate uservice\'');

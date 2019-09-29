@@ -1,6 +1,7 @@
 import { generationOptions } from "../constants";
+import { GluegunQuestionType } from "../model/gluegun-question-type";
 
-export function firstCommonQuestions() {
+export function firstCommonQuestions(): GluegunQuestionType[] {
     return [
         {
           type: 'list',
@@ -14,11 +15,6 @@ export function firstCommonQuestions() {
           type: 'input',
           name: 'name',
           message: 'What is the service name? (Ex.: MyNewMicroService)',
-        },
-        {
-          type: 'confirm',
-          name: 'confirm',
-          message: 'Are you sure?',
         }
     ];
 }
