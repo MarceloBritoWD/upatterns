@@ -22,7 +22,7 @@ module.exports = {
     
     const firstParam = parameters.first;
 
-    header(); // TODO: add link for official documentation
+    header(); // TODO: add link for official documentation of upatterns
                                                                                     
     if(!firstParam) {
       error('🎈 You need to pass what to generate. Ex: \'$ upatterns generate uservice\'');
@@ -45,7 +45,6 @@ module.exports = {
     });
 
     // TODO: add links to the tools used in the generation here (a function that returns it).
-
     success(`Generated service!`)
   }
 }

@@ -33,7 +33,28 @@ export function getFilteredQuestionsApiGateway(): GluegunQuestionType[] {
     return [];
 };
 export function getFilteredQuestionsServiceDiscovery(): GluegunQuestionType[] {
-    return [];
+    return [
+        {
+            type: 'input',
+            name: 'port',
+            message: 'What port do you wanna for the Service Discovery?',
+            default: '8761'
+        },
+        {
+            type: 'input',
+            name: 'registerWithEureka',
+            message: 'Do you wanna enable register-with-eureka at application.properties?',
+            default: 'false'
+        },
+        {
+            type: 'input',
+            name: 'fetchRegistry',
+            message: 'Do you wanna enable fetch-registry at application.properties?',
+            default: 'false'
+        }
+
+        // TODO: Add choices to update the selected with @@EnableEurekaClient
+    ];
 };
 export function getFilteredQuestionsExternalConfigurationService(): GluegunQuestionType[] {
     return [
@@ -43,7 +64,6 @@ export function getFilteredQuestionsExternalConfigurationService(): GluegunQuest
             message: 'What port do you wanna for the External Configural service?',
             default: '9080'
         },
-
         {
             type: 'input',
             name: 'repository',

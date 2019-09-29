@@ -1,29 +1,30 @@
 import { GluegunTemplateGenerateOptions } from "gluegun/build/types/toolbox/template-types";
 import { MicroService } from "../model/micro-service";
-import { getServiceByFinalAnswers, getStringDashed } from "./utils";
+import { getServiceByFinalAnswers, getStringDashed, switchDotsBySlashs } from "./utils";
+import { templates, DEFAULT_ROOT_REPOSITORY } from "../constants";
 
 export function processAnswer(finalAnswers: any) {
     const service: MicroService = getServiceByFinalAnswers(finalAnswers);
 
     switch (service.type) {
         case 'SimpleMicroService':
-            return generateSimpleMicroService(service);
+            return generateSimpleMicroService(finalAnswers);
 
         case 'SimpleMicroServiceSharedDatabase':
-            return generateSimpleMicroServiceSharedDatabase(service);
+            return generateSimpleMicroServiceSharedDatabase(finalAnswers);
             
         case 'ApiGateway':
-            return generateApiGateway(service)
+            return generateApiGateway(finalAnswers)
 
         case 'ServiceDiscovery':
-            return generateServiceDiscovery(service)
+            return generateServiceDiscovery(finalAnswers)
 
         case 'ExternalConfigurationService':
             return generateExternalConfigurationService(finalAnswers)
     }
 }
 
-export function generateSimpleMicroService(service: MicroService): GluegunTemplateGenerateOptions[] {
+export function generateSimpleMicroService(finalAnswers: any): GluegunTemplateGenerateOptions[] {
     return [
         {
             template: '',
@@ -36,7 +37,7 @@ export function generateSimpleMicroService(service: MicroService): GluegunTempla
 }
 
 
-export function generateSimpleMicroServiceSharedDatabase(service: MicroService): GluegunTemplateGenerateOptions[] {
+export function generateSimpleMicroServiceSharedDatabase(finalAnswers: any): GluegunTemplateGenerateOptions[] {
     return [{
         template: '',
         target: '',
@@ -47,7 +48,7 @@ export function generateSimpleMicroServiceSharedDatabase(service: MicroService):
 }
 
 
-export function generateApiGateway(service: MicroService): GluegunTemplateGenerateOptions[] {
+export function generateApiGateway(finalAnswers: any): GluegunTemplateGenerateOptions[] {
     return [{
         template: '',
         target: '',
@@ -58,57 +59,90 @@ export function generateApiGateway(service: MicroService): GluegunTemplateGenera
 }
 
 
-export function generateServiceDiscovery(service: MicroService): GluegunTemplateGenerateOptions[] {
-    return [{
-        template: '',
-        target: '',
-        props: {
-            
+function generateServiceDiscovery(finalAnswers: any): GluegunTemplateGenerateOptions[] {
+    return [
+        {
+            template: `${templates.SERVICE_DISCOVERY}/MyEurekaApplication.java.ejs`,
+            target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/src/main/java/${switchDotsBySlashs(finalAnswers.package)}/${finalAnswers.name.toLowerCase()}/${finalAnswers.name}Application.java`,
+            props: {
+                name: finalAnswers.name,
+                lowerName: finalAnswers.name.toLowerCase(),
+                package: finalAnswers.package
+            }
+        },
+        {
+            template: `${templates.SERVICE_DISCOVERY}/MyEurekaApplicationTests.java.ejs`,
+            target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/src/test/java/${switchDotsBySlashs(finalAnswers.package)}/${finalAnswers.name.toLowerCase()}/${finalAnswers.name}ApplicationTests.java`,
+            props: { 
+                name: finalAnswers.name,
+                lowerName: finalAnswers.name.toLowerCase(),
+                package: finalAnswers.package
+            }
+        },
+        {
+            template: `${templates.SERVICE_DISCOVERY}/application.properties.ejs`,
+            target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/src/main/resources/aplication.properties`,
+            props: { 
+                port: finalAnswers.port,
+                registerWithEureka: finalAnswers.registerWithEureka,
+                fetchRegistry: finalAnswers.fetchRegistry
+            }
+        },
+        {
+            template: `${templates.SERVICE_DISCOVERY}/pom.xml.ejs`,
+            target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/pom.xml`,
+            props: {
+                dashedName: getStringDashed(finalAnswers.name)
+            }
+        },
+        {
+            template: `${templates.SERVICE_DISCOVERY}/.gitignore.ejs`,
+            target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/.gitignore`,
         }
-    }];
+    ];
 }
 
 
 function generateExternalConfigurationService(finalAnswers: any): GluegunTemplateGenerateOptions[] {
     return [
         {
-            template: `config-server/src/main/java/br/com/springcloud/myconfig/MyConfigApplication.java.ejs`,
-            target: `services/${getStringDashed(finalAnswers.name)}/src/main/java/br/com/springcloud/${finalAnswers.name.toLowerCase()}/${finalAnswers.name}Application.java`,
+            template: `${templates.EXTERNAL_CONFIGURATION_SERVICE}/MyConfigApplication.java.ejs`,
+            target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/src/main/java/${switchDotsBySlashs(finalAnswers.package)}/${finalAnswers.name.toLowerCase()}/${finalAnswers.name}Application.java`,
             props: {
               name: finalAnswers.name,
-              lowerName: finalAnswers.name.toLowerCase()
+              lowerName: finalAnswers.name.toLowerCase(),
+              package: finalAnswers.package
             }
         },
-
         {
-            template: `config-server/src/test/java/br/com/springcloud/myconfig/MyConfigApplicationTests.java.ejs`,
-            target: `services/${getStringDashed(finalAnswers.name)}/src/test/java/br/com/springcloud/${finalAnswers.name.toLowerCase()}/${finalAnswers.name}ApplicationTests.java`,
+            template: `${templates.EXTERNAL_CONFIGURATION_SERVICE}/MyConfigApplicationTests.java.ejs`,
+            target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/src/test/java/${switchDotsBySlashs(finalAnswers.package)}/${finalAnswers.name.toLowerCase()}/${finalAnswers.name}ApplicationTests.java`,
             props: { 
               name: finalAnswers.name,
-              lowerName: finalAnswers.name.toLowerCase()
+              lowerName: finalAnswers.name.toLowerCase(),
+              package: finalAnswers.package
             }
         },
-
         {
-            template: `config-server/src/main/resources/application.yml.ejs`,
-            target: `services/${getStringDashed(finalAnswers.name)}/src/main/resources/application.yml`,
+            template: `${templates.EXTERNAL_CONFIGURATION_SERVICE}/application.yml.ejs`, // TODO: colocar isos aqui pra ser um application.properties normal
+            target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/src/main/resources/application.yml`,
             props: { 
               port: finalAnswers.port,
               repository: finalAnswers.repository
             }
         },
-
         {
-            template: `config-server/.gitignore.ejs`,
-            target: `services/${getStringDashed(finalAnswers.name)}/.gitignore`,
-        },
-
-        {
-            template: `config-server/pom.xml.ejs`,
-            target: `services/${getStringDashed(finalAnswers.name)}/pom.xml`,
+            template: `${templates.EXTERNAL_CONFIGURATION_SERVICE}/pom.xml.ejs`,
+            target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/pom.xml`,
             props: {
-                dashedName: getStringDashed(finalAnswers.name)
+                dashedName: getStringDashed(finalAnswers.name),
+                package: finalAnswers.package
+
             }
+        },
+        {
+            template: `${templates.EXTERNAL_CONFIGURATION_SERVICE}/.gitignore.ejs`,
+            target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/.gitignore`,
         }
     ]
 }

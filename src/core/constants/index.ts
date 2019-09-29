@@ -23,3 +23,9 @@ export const generationOptions: MicroService[] = [
     }
 ];
 
+export const DEFAULT_ROOT_REPOSITORY = 'services';
+
+export namespace templates {
+    export const EXTERNAL_CONFIGURATION_SERVICE = 'external-configuration-service';
+    export const SERVICE_DISCOVERY = 'service-discovery';
+}
