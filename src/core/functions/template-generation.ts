@@ -24,7 +24,7 @@ export function processAnswer(finalAnswers: any) {
     }
 }
 
-export function generateSimpleMicroService(finalAnswers: any): GluegunTemplateGenerateOptions[] {
+function generateSimpleMicroService(finalAnswers: any): GluegunTemplateGenerateOptions[] {
     return [
         {
             template: '',
@@ -36,8 +36,7 @@ export function generateSimpleMicroService(finalAnswers: any): GluegunTemplateGe
     ];
 }
 
-
-export function generateSimpleMicroServiceSharedDatabase(finalAnswers: any): GluegunTemplateGenerateOptions[] {
+function generateSimpleMicroServiceSharedDatabase(finalAnswers: any): GluegunTemplateGenerateOptions[] {
     return [{
         template: '',
         target: '',
@@ -48,7 +47,7 @@ export function generateSimpleMicroServiceSharedDatabase(finalAnswers: any): Glu
 }
 
 
-export function generateApiGateway(finalAnswers: any): GluegunTemplateGenerateOptions[] {
+function generateApiGateway(finalAnswers: any): GluegunTemplateGenerateOptions[] {
     return [{
         template: '',
         target: '',
@@ -81,7 +80,7 @@ function generateServiceDiscovery(finalAnswers: any): GluegunTemplateGenerateOpt
         },
         {
             template: `${templates.SERVICE_DISCOVERY}/application.properties.ejs`,
-            target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/src/main/resources/aplication.properties`,
+            target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/src/main/resources/application.properties`,
             props: { 
                 port: finalAnswers.port,
                 registerWithEureka: finalAnswers.registerWithEureka,
@@ -92,7 +91,8 @@ function generateServiceDiscovery(finalAnswers: any): GluegunTemplateGenerateOpt
             template: `${templates.SERVICE_DISCOVERY}/pom.xml.ejs`,
             target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/pom.xml`,
             props: {
-                dashedName: getStringDashed(finalAnswers.name)
+                dashedName: getStringDashed(finalAnswers.name),
+                package: finalAnswers.package
             }
         },
         {
@@ -137,7 +137,6 @@ function generateExternalConfigurationService(finalAnswers: any): GluegunTemplat
             props: {
                 dashedName: getStringDashed(finalAnswers.name),
                 package: finalAnswers.package
-
             }
         },
         {
