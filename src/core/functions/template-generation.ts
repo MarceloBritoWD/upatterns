@@ -46,7 +46,7 @@ function generateSimpleMicroService(finalAnswers: any): GluegunTemplateGenerateO
         },
         {
             template: `${templates.SIMPLE_MICRO_SERVICE}/DemoController.java.ejs`,
-            target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/src/test/java/${switchDotsBySlashs(finalAnswers.package)}/${finalAnswers.name.toLowerCase()}/controller/DemoController.java`,
+            target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/src/main/java/${switchDotsBySlashs(finalAnswers.package)}/${finalAnswers.name.toLowerCase()}/controller/DemoController.java`,
             props: {
                 lowerName: finalAnswers.name.toLowerCase(),
                 package: finalAnswers.package
@@ -110,7 +110,8 @@ function generateApiGateway(finalAnswers: any): GluegunTemplateGenerateOptions[]
             template: `${templates.API_GATEWAY}/application.yml.ejs`,
             target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/src/main/resources/application.yml`,
             props: { 
-                port: finalAnswers.port
+                port: finalAnswers.port,
+                dashedName: getStringDashed(finalAnswers.name)
             }
         },
         {

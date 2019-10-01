@@ -14,7 +14,7 @@ export const generationOptions: MicroService[] = [
         type: 'ApiGateway'
     },
     {
-        name: 'Service Discovery',
+        name: 'Service Discovery (With Eureka)',
         type: 'ServiceDiscovery'
     },
     {

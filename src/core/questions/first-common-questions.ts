@@ -14,7 +14,7 @@ export function firstCommonQuestions(): GluegunQuestionType[] {
 		{
 			type: 'input',
 			name: 'name',
-			message: 'What is the service name? (Ex.: MyNewMicroService)',
+			message: 'What is the service name? (e.g.: MyNewMicroService)',
 		},
 		{
 			type: 'input',
