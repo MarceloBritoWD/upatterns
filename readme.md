@@ -1,23 +1,7 @@
-# upatterns CLI
+# Upatterns CLI
 
-A CLI for upatterns.
+A Command Line Interface for generate microservices with Spring Cloud.
 
-## Customizing your CLI
-
-Check out the documentation at https://github.com/infinitered/gluegun/tree/master/docs.
-
-## Publishing to NPM
-
-To package your CLI up for NPM, do this:
-
-```shell
-$ npm login
-$ npm whoami
-$ npm lint
-$ npm test
-(if typescript, run `npm run build` here)
-$ npm publish
-```
 
 # License
 
