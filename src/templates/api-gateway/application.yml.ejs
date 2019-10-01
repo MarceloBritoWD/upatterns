@@ -1,0 +1,8 @@
+server:
+  port: <%=props.port%>
+
+zuul:
+  routes:
+    example:
+      path: /services/example/**
+      serviceId: my-example-service

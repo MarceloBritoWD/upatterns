@@ -26,6 +26,8 @@ export const generationOptions: MicroService[] = [
 export const DEFAULT_ROOT_REPOSITORY = 'services';
 
 export namespace templates {
-    export const EXTERNAL_CONFIGURATION_SERVICE = 'external-configuration-service';
+    export const SIMPLE_MICRO_SERVICE = 'simple-micro-service';
+    export const API_GATEWAY = 'api-gateway';
     export const SERVICE_DISCOVERY = 'service-discovery';
+    export const EXTERNAL_CONFIGURATION_SERVICE = 'external-configuration-service';
 }

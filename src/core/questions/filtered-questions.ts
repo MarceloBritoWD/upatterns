@@ -24,13 +24,27 @@ export function getNewQuestions(firstAnswers: any): GluegunQuestionType[] {
 }
 
 export function getFilteredQuestionsSimpleMicroService(): GluegunQuestionType[] {
-    return [];
+    return [
+        {
+            type: 'input',
+            name: 'port',
+            message: 'What port do you wanna for the Simple Micro Service?',
+            default: '8081'
+        }
+    ];
 };
 export function getFilteredQuestionsSimpleMicroServiceSharedDatabase(): GluegunQuestionType[] {
     return [];
 };
 export function getFilteredQuestionsApiGateway(): GluegunQuestionType[] {
-    return [];
+    return [
+        {
+            type: 'input',
+            name: 'port',
+            message: 'What port do you wanna for the API Gateway?',
+            default: '9070'
+        }
+    ];
 };
 export function getFilteredQuestionsServiceDiscovery(): GluegunQuestionType[] {
     return [
@@ -53,7 +67,7 @@ export function getFilteredQuestionsServiceDiscovery(): GluegunQuestionType[] {
             default: 'false'
         }
 
-        // TODO: Add choices to update the selected with @@EnableEurekaClient
+        // TODO: Add choices to update the selecteds with @EnableEurekaClient
     ];
 };
 export function getFilteredQuestionsExternalConfigurationService(): GluegunQuestionType[] {
