@@ -18,8 +18,8 @@ export const generationOptions: MicroService[] = [
         type: 'ServiceDiscovery'
     },
     {
-        name: 'External Configuration Service',
-        type: 'ExternalConfigurationService'
+        name: 'Externalized Configuration Service',
+        type: 'ExternalizedConfigurationService'
     }
 ];
 
@@ -29,5 +29,5 @@ export namespace templates {
     export const SIMPLE_MICRO_SERVICE = 'simple-micro-service';
     export const API_GATEWAY = 'api-gateway';
     export const SERVICE_DISCOVERY = 'service-discovery';
-    export const EXTERNAL_CONFIGURATION_SERVICE = 'external-configuration-service';
+    export const EXTERNALIZED_CONFIGURATION_SERVICE = 'externalized-configuration-service';
 }

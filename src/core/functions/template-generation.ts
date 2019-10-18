@@ -19,8 +19,8 @@ export function processAnswer(finalAnswers: any) {
         case 'ServiceDiscovery':
             return generateServiceDiscovery(finalAnswers)
 
-        case 'ExternalConfigurationService':
-            return generateExternalConfigurationService(finalAnswers)
+        case 'ExternalizedConfigurationService':
+            return generateExternalizedConfigurationService(finalAnswers)
     }
 }
 
@@ -175,10 +175,10 @@ function generateServiceDiscovery(finalAnswers: any): GluegunTemplateGenerateOpt
 }
 
 
-function generateExternalConfigurationService(finalAnswers: any): GluegunTemplateGenerateOptions[] {
+function generateExternalizedConfigurationService(finalAnswers: any): GluegunTemplateGenerateOptions[] {
     return [
         {
-            template: `${templates.EXTERNAL_CONFIGURATION_SERVICE}/MyConfigApplication.java.ejs`,
+            template: `${templates.EXTERNALIZED_CONFIGURATION_SERVICE}/MyConfigApplication.java.ejs`,
             target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/src/main/java/${switchDotsBySlashs(finalAnswers.package)}/${finalAnswers.name.toLowerCase()}/${finalAnswers.name}Application.java`,
             props: {
               name: finalAnswers.name,
@@ -187,7 +187,7 @@ function generateExternalConfigurationService(finalAnswers: any): GluegunTemplat
             }
         },
         {
-            template: `${templates.EXTERNAL_CONFIGURATION_SERVICE}/MyConfigApplicationTests.java.ejs`,
+            template: `${templates.EXTERNALIZED_CONFIGURATION_SERVICE}/MyConfigApplicationTests.java.ejs`,
             target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/src/test/java/${switchDotsBySlashs(finalAnswers.package)}/${finalAnswers.name.toLowerCase()}/${finalAnswers.name}ApplicationTests.java`,
             props: { 
               name: finalAnswers.name,
@@ -196,7 +196,7 @@ function generateExternalConfigurationService(finalAnswers: any): GluegunTemplat
             }
         },
         {
-            template: `${templates.EXTERNAL_CONFIGURATION_SERVICE}/application.yml.ejs`,
+            template: `${templates.EXTERNALIZED_CONFIGURATION_SERVICE}/application.yml.ejs`,
             target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/src/main/resources/application.yml`,
             props: { 
               port: finalAnswers.port,
@@ -204,7 +204,7 @@ function generateExternalConfigurationService(finalAnswers: any): GluegunTemplat
             }
         },
         {
-            template: `${templates.EXTERNAL_CONFIGURATION_SERVICE}/pom.xml.ejs`,
+            template: `${templates.EXTERNALIZED_CONFIGURATION_SERVICE}/pom.xml.ejs`,
             target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/pom.xml`,
             props: {
                 dashedName: getStringDashed(finalAnswers.name),
@@ -212,7 +212,7 @@ function generateExternalConfigurationService(finalAnswers: any): GluegunTemplat
             }
         },
         {
-            template: `${templates.EXTERNAL_CONFIGURATION_SERVICE}/.gitignore.ejs`,
+            template: `${templates.EXTERNALIZED_CONFIGURATION_SERVICE}/.gitignore.ejs`,
             target: `${DEFAULT_ROOT_REPOSITORY}/${getStringDashed(finalAnswers.name)}/.gitignore`,
         }
     ]

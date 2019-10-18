@@ -18,8 +18,8 @@ export function getNewQuestions(firstAnswers: any): GluegunQuestionType[] {
       case 'ServiceDiscovery':
           return getFilteredQuestionsServiceDiscovery();
   
-      case 'ExternalConfigurationService':
-          return getFilteredQuestionsExternalConfigurationService();
+      case 'ExternalizedConfigurationService':
+          return getFilteredQuestionsExternalizedConfigurationService();
     }
 }
 
@@ -70,7 +70,7 @@ export function getFilteredQuestionsServiceDiscovery(): GluegunQuestionType[] {
         // TODO: Add choices to update the selecteds with @EnableEurekaClient
     ];
 };
-export function getFilteredQuestionsExternalConfigurationService(): GluegunQuestionType[] {
+export function getFilteredQuestionsExternalizedConfigurationService(): GluegunQuestionType[] {
     return [
         {
             type: 'input',
