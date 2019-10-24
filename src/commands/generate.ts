@@ -30,7 +30,7 @@ module.exports = {
       return;
     }
 
-    if(firstParam !== 'uservice') {
+    if(firstParam !== 'service') {
       error('🎈 This type of generation is not supported.');
       info('📖  Run \'$ upatterns -h\' to get help');
       return;
